@@ -20,6 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Tela 2: opções de hospedagem e serviços -->
+        <activity
+            android:name=".TripOptionsActivity"
+            android:exported="false" />
+
+        <!-- Tela 3: resumo e cálculo do custo total -->
+        <activity
+            android:name=".TripSummaryActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
