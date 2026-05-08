@@ -25,9 +25,15 @@ fun TripSummaryScreen(
     hasTransport: Boolean,
     hasFood: Boolean,
     hasTours: Boolean,
+    economicMode: Boolean,
     onRestart: () -> Unit
 ) {
-    val custoBase = days * dailyBudget
+
+    var custoBase = days * dailyBudget
+
+    if (economicMode) {
+        custoBase *= 0.85
+    }
 
     val accommodationMultiplier = when (accommodation) {
         "Conforto" -> 1.5
@@ -41,6 +47,7 @@ fun TripSummaryScreen(
     val extraTours = if (hasTours) 120.0 * days else 0.0
 
     val totalCost = custoHospedagem + extraTransport + extraFood + extraTours
+
 
     val currency = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
 

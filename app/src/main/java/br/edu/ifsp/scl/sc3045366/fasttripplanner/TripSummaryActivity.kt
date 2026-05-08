@@ -17,6 +17,7 @@ class TripSummaryActivity : ComponentActivity() {
         const val EXTRA_TRANSPORT = "extra_transport"
         const val EXTRA_FOOD = "extra_food"
         const val EXTRA_TOURS = "extra_tours"
+        const val ECONOMIC_MODE = "economic_mode"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,7 @@ class TripSummaryActivity : ComponentActivity() {
         val hasTransport = intent.getBooleanExtra(EXTRA_TRANSPORT, false)
         val hasFood = intent.getBooleanExtra(EXTRA_FOOD, false)
         val hasTours = intent.getBooleanExtra(EXTRA_TOURS, false)
+        val economicMode = intent.getBooleanExtra(ECONOMIC_MODE, false)
 
         setContent {
             FastTripPlannerTheme {
@@ -40,6 +42,7 @@ class TripSummaryActivity : ComponentActivity() {
                     hasTransport = hasTransport,
                     hasFood = hasFood,
                     hasTours = hasTours,
+                    economicMode = economicMode,
                     onRestart = {
                         val intent = Intent(this, TripDetailsActivity::class.java).apply {
                             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP

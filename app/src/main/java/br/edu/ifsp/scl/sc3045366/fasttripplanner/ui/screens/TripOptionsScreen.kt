@@ -13,6 +13,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,6 +39,7 @@ fun TripOptionsScreen(
     var hasTransport by rememberSaveable { mutableStateOf(false) }
     var hasFood by rememberSaveable { mutableStateOf(false) }
     var hasTours by rememberSaveable { mutableStateOf(false) }
+    var economicMode by rememberSaveable { mutableStateOf(value = false) }
 
     Column(
         modifier = Modifier
@@ -50,6 +52,13 @@ fun TripOptionsScreen(
         )
 
         Spacer(modifier = Modifier.height(16.dp))
+
+        Text(text = "Modo Econômico", style = MaterialTheme.typography.titleMedium)
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Switch(checked = economicMode, onCheckedChange = {economicMode = it})
+            Text(text = "Ativar")
+        }
 
         Text(text = "Hospedagem", style = MaterialTheme.typography.titleMedium)
 
@@ -64,6 +73,10 @@ fun TripOptionsScreen(
                 )
                 Text(text = option)
             }
+        }
+
+        if (economicMode) {
+            accommodation = "Econômica"
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -85,6 +98,10 @@ fun TripOptionsScreen(
             Text(text = "Passeios (+R$ 120,00/dia)")
         }
 
+        if (economicMode) {
+            hasTours = false
+        }
+
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
@@ -97,6 +114,7 @@ fun TripOptionsScreen(
                     putExtra(TripSummaryActivity.EXTRA_TRANSPORT, hasTransport)
                     putExtra(TripSummaryActivity.EXTRA_FOOD, hasFood)
                     putExtra(TripSummaryActivity.EXTRA_TOURS, hasTours)
+                    putExtra(TripSummaryActivity.ECONOMIC_MODE, economicMode)
                 }
                 context.startActivity(intent)
             },
